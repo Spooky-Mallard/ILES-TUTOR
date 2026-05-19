@@ -345,12 +345,8 @@ code, pre {
   color: #e2e8f0;
   border-radius: var(--radius);
   padding: 1rem;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow-x: auto;
   margin: .75rem 0;
-  white-space: pre-wrap;
-  word-break: normal;
-  overflow-wrap: break-word;
 }
 .concept-markdown pre code {
   background: none;
@@ -358,18 +354,6 @@ code, pre {
   padding: 0;
   color: inherit;
   font-size: .82rem;
-  white-space: pre-wrap;
-}
-
-/* All SyntaxHighlighter blocks outside the code editor: preserve indentation, wrap vertically */
-.concept-markdown pre[class*="language-"],
-.annotated-example pre[class*="language-"],
-.reveal-answer-wrap pre[class*="language-"],
-.phase-reader-body pre[class*="language-"] {
-  white-space: pre-wrap !important;
-  overflow-x: hidden !important;
-  word-break: normal !important;
-  overflow-wrap: break-word !important;
 }
 .concept-markdown table {
   border-collapse: collapse;
@@ -766,16 +750,6 @@ code, pre {
   flex: 1;
 }
 
-/* Force code blocks inside the modal to preserve indentation but wrap — no horizontal scroll */
-.docs-modal-body pre {
-  white-space: pre-wrap !important;
-  word-break: break-word !important;
-  overflow-x: hidden !important;
-}
-
-.docs-modal-body code {
-  white-space: pre-wrap !important;
-}
 
 .docs-card-heading {
   font-size: 1rem;

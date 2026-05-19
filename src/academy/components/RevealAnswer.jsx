@@ -15,15 +15,15 @@ export default function RevealAnswer({ solution, language = 'python', onReveal }
   if (revealed) {
     return (
       <div className="reveal-answer-wrap">
-        <SyntaxHighlighter
-          language={language}
-          style={oneDark}
-          customStyle={{ borderRadius: '8px', fontSize: '0.82rem', whiteSpace: 'pre-wrap', overflowX: 'hidden' }}
-          wrapLines
-          codeTagProps={{ style: { whiteSpace: 'pre-wrap' } }}
-        >
-          {solution}
-        </SyntaxHighlighter>
+        <div style={{ maxWidth: '100%', overflowX: 'auto', borderRadius: '8px' }}>
+          <SyntaxHighlighter
+            language={language}
+            style={oneDark}
+            customStyle={{ borderRadius: '8px', fontSize: '0.82rem' }}
+          >
+            {solution}
+          </SyntaxHighlighter>
+        </div>
       </div>
     );
   }

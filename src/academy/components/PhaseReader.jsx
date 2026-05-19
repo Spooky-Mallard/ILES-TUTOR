@@ -6,34 +6,20 @@ const codeStyle = {
   borderRadius: '8px',
   fontSize: '0.82rem',
   margin: 0,
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'normal',
-  overflowWrap: 'break-word',
-  overflowX: 'hidden',
-};
-
-const inlineCodeStyle = {
-  borderRadius: '6px',
-  fontSize: '0.82rem',
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'normal',
-  overflowWrap: 'break-word',
-  overflowX: 'hidden',
 };
 
 function CodeBlock({ language, children, showLineNumbers = false }) {
   return (
-    <SyntaxHighlighter
-      language={language || 'python'}
-      style={oneDark}
-      showLineNumbers={showLineNumbers}
-      customStyle={showLineNumbers ? codeStyle : inlineCodeStyle}
-      wrapLines
-      wrapLongLines={false}
-      codeTagProps={{ style: { whiteSpace: 'pre-wrap' } }}
-    >
-      {children}
-    </SyntaxHighlighter>
+    <div style={{ maxWidth: '100%', overflowX: 'auto', borderRadius: '8px' }}>
+      <SyntaxHighlighter
+        language={language || 'python'}
+        style={oneDark}
+        showLineNumbers={showLineNumbers}
+        customStyle={codeStyle}
+      >
+        {children}
+      </SyntaxHighlighter>
+    </div>
   );
 }
 

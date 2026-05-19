@@ -42,24 +42,19 @@ function DocsModal({ docs, category, onClose }) {
               <h4 className="docs-card-heading">{doc.heading}</h4>
               {doc.content && <p className="docs-card-content">{doc.content}</p>}
               {doc.code && (
-                <SyntaxHighlighter
-                  language={category === 'React' ? 'jsx' : 'python'}
-                  style={vscDarkPlus}
-                  customStyle={{
-                    borderRadius: '8px',
-                    fontSize: '0.82rem',
-                    margin: '0.75rem 0 0',
-                    overflowX: 'hidden',
-                    overflowY: 'auto',
-                    whiteSpace: 'pre-wrap',
-                    wordBreak: 'normal',
-                    overflowWrap: 'break-word',
-                  }}
-                  wrapLines
-                  codeTagProps={{ style: { whiteSpace: 'pre-wrap' } }}
-                >
-                  {doc.code}
-                </SyntaxHighlighter>
+                <div style={{ maxWidth: '100%', overflowX: 'auto', borderRadius: '8px', marginTop: '0.75rem' }}>
+                  <SyntaxHighlighter
+                    language={category === 'React' ? 'jsx' : 'python'}
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: '8px',
+                      fontSize: '0.82rem',
+                      margin: 0,
+                    }}
+                  >
+                    {doc.code}
+                  </SyntaxHighlighter>
+                </div>
               )}
             </>
           )}
