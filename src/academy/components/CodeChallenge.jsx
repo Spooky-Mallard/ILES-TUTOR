@@ -81,13 +81,11 @@ export default function CodeChallenge({
         <button className="btn-primary" onClick={handleRun}>▶ Run Checks</button>
         <button className="btn-secondary" onClick={handleReset}>↺ Reset</button>
         <HintDrawer hints={hints} />
-        {!revealed && (
-          <RevealAnswer
-            solution={phaseData?.solution || ''}
-            language={isReact ? 'jsx' : 'python'}
-            onReveal={() => setRevealed(true)}
-          />
-        )}
+        <RevealAnswer
+          solution={phaseData?.solution || ''}
+          language={isReact ? 'jsx' : 'python'}
+          onReveal={() => setRevealed(true)}
+        />
       </div>
 
       {blankWarning && (
