@@ -354,6 +354,12 @@ code, pre {
   padding: 0;
   color: inherit;
   font-size: .82rem;
+  display: block !important;
+}
+.annotated-example pre code,
+.reveal-answer-wrap pre code,
+.docs-modal-body pre code {
+  display: block !important;
 }
 .concept-markdown table {
   border-collapse: collapse;

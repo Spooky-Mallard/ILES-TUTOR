@@ -54,12 +54,18 @@ export default function PhaseReader({ level }) {
         <div className="concept-markdown">
           <ReactMarkdown
             components={{
+              pre({ children }) {
+                return <>{children}</>;
+              },
               code({ inline, className, children }) {
                 const lang = (className || '').replace('language-', '');
                 if (inline) return <code>{children}</code>;
+                const code = Array.isArray(children)
+                  ? children.join('')
+                  : String(children);
                 return (
                   <CodeBlock language={lang}>
-                    {String(children).replace(/\n$/, '')}
+                    {code.replace(/\n$/, '')}
                   </CodeBlock>
                 );
               },
