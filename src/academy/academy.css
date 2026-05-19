@@ -719,7 +719,19 @@ code, pre {
 .docs-modal-body {
   padding: 1.25rem;
   overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
+}
+
+/* Force code blocks inside the modal to preserve indentation but wrap — no horizontal scroll */
+.docs-modal-body pre {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: hidden !important;
+}
+
+.docs-modal-body code {
+  white-space: pre-wrap !important;
 }
 
 .docs-card-heading {

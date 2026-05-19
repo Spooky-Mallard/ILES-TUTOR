@@ -45,9 +45,22 @@ function DocsModal({ docs, category, onClose }) {
                 <SyntaxHighlighter
                   language={category === 'React' ? 'jsx' : 'python'}
                   style={vscDarkPlus}
-                  customStyle={{ borderRadius: '8px', fontSize: '0.82rem', margin: '0.75rem 0 0' }}
-                  wrapLines
-                  wrapLongLines
+                  customStyle={{
+                    borderRadius: '8px',
+                    fontSize: '0.82rem',
+                    margin: '0.75rem 0 0',
+                    overflowX: 'hidden',
+                    overflowY: 'auto',
+                    whiteSpace: 'pre',
+                    wordBreak: 'normal',
+                    overflowWrap: 'normal',
+                  }}
+                  codeTagProps={{
+                    style: {
+                      whiteSpace: 'pre',
+                      display: 'block',
+                    }
+                  }}
                 >
                   {doc.code}
                 </SyntaxHighlighter>
