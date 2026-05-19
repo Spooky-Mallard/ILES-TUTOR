@@ -2,19 +2,49 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+const codeStyle = {
+  borderRadius: '8px',
+  fontSize: '0.82rem',
+  margin: 0,
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'normal',
+  overflowWrap: 'break-word',
+  overflowX: 'hidden',
+};
+
+const inlineCodeStyle = {
+  borderRadius: '6px',
+  fontSize: '0.82rem',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'normal',
+  overflowWrap: 'break-word',
+  overflowX: 'hidden',
+};
+
+function CodeBlock({ language, children, showLineNumbers = false }) {
+  return (
+    <SyntaxHighlighter
+      language={language || 'python'}
+      style={oneDark}
+      showLineNumbers={showLineNumbers}
+      customStyle={showLineNumbers ? codeStyle : inlineCodeStyle}
+      wrapLines
+      wrapLongLines={false}
+      codeTagProps={{ style: { whiteSpace: 'pre-wrap' } }}
+    >
+      {children}
+    </SyntaxHighlighter>
+  );
+}
+
 function AnnotatedExample({ example }) {
   if (!example) return null;
   return (
     <div className="annotated-example">
       <h3>Annotated Example</h3>
-      <SyntaxHighlighter
-        language={example.language || 'python'}
-        style={oneDark}
-        showLineNumbers
-        customStyle={{ borderRadius: '8px', fontSize: '0.82rem', margin: 0 }}
-      >
+      <CodeBlock language={example.language || 'python'} showLineNumbers>
         {example.code}
-      </SyntaxHighlighter>
+      </CodeBlock>
       {example.annotations?.length > 0 && (
         <ul className="annotation-list">
           {example.annotations.map((ann, i) => (
@@ -43,9 +73,9 @@ export default function PhaseReader({ level }) {
                 const lang = (className || '').replace('language-', '');
                 if (inline) return <code>{children}</code>;
                 return (
-                  <SyntaxHighlighter language={lang || 'python'} style={oneDark} customStyle={{ borderRadius: '6px', fontSize: '0.82rem' }}>
+                  <CodeBlock language={lang}>
                     {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 );
               },
             }}

@@ -15,7 +15,13 @@ export default function RevealAnswer({ solution, language = 'python', onReveal }
   if (revealed) {
     return (
       <div className="reveal-answer-wrap">
-        <SyntaxHighlighter language={language} style={oneDark} customStyle={{ borderRadius: '8px', fontSize: '0.82rem' }}>
+        <SyntaxHighlighter
+          language={language}
+          style={oneDark}
+          customStyle={{ borderRadius: '8px', fontSize: '0.82rem', whiteSpace: 'pre-wrap', overflowX: 'hidden' }}
+          wrapLines
+          codeTagProps={{ style: { whiteSpace: 'pre-wrap' } }}
+        >
           {solution}
         </SyntaxHighlighter>
       </div>

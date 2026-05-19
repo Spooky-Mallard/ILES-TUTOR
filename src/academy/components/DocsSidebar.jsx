@@ -51,16 +51,12 @@ function DocsModal({ docs, category, onClose }) {
                     margin: '0.75rem 0 0',
                     overflowX: 'hidden',
                     overflowY: 'auto',
-                    whiteSpace: 'pre',
+                    whiteSpace: 'pre-wrap',
                     wordBreak: 'normal',
-                    overflowWrap: 'normal',
+                    overflowWrap: 'break-word',
                   }}
-                  codeTagProps={{
-                    style: {
-                      whiteSpace: 'pre',
-                      display: 'block',
-                    }
-                  }}
+                  wrapLines
+                  codeTagProps={{ style: { whiteSpace: 'pre-wrap' } }}
                 >
                   {doc.code}
                 </SyntaxHighlighter>
