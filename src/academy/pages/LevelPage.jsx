@@ -8,7 +8,7 @@ import DocsSidebar from '../components/DocsSidebar.jsx';
 const PHASES = ['concept', 'guided', 'challenge'];
 const PHASE_LABELS = { concept: '1. Concept', guided: '2. Guided', challenge: '3. Challenge' };
 
-export default function LevelPage({ markComplete, markVisited, saveScore, isComplete, isUnlocked, guidedScores, challengeScores }) {
+export default function LevelPage({ markComplete, markVisited, saveScore, isComplete, isUnlocked, guidedScores, challengeScores, refOpen }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const levelId = Number(id);
@@ -141,6 +141,7 @@ export default function LevelPage({ markComplete, markVisited, saveScore, isComp
         level={level}
         guidedScore={guidedScore}
         challengeScore={challengeScore}
+        mobileOpen={refOpen}
       />
     </>
   );

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { levels, modules } from '../data/levels.js';
 
-export default function LevelNav({ currentLevelId, isUnlocked, isComplete, hasVisited }) {
+export default function LevelNav({ currentLevelId, isUnlocked, isComplete, hasVisited, onNavigate }) {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState({});
 
@@ -40,7 +40,7 @@ export default function LevelNav({ currentLevelId, isUnlocked, isComplete, hasVi
                     key={level.id}
                     className={className}
                     onClick={() => {
-                      if (!locked) navigate(`/academy/level/${level.id}`);
+                      if (!locked) { navigate(`/academy/level/${level.id}`); onNavigate?.(); }
                     }}
                   >
                     <div className="level-nav-dot">

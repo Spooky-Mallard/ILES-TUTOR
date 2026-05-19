@@ -64,12 +64,12 @@ function DocsModal({ docs, category, onClose }) {
   );
 }
 
-export default function DocsSidebar({ level, guidedScore, challengeScore }) {
+export default function DocsSidebar({ level, guidedScore, challengeScore, mobileOpen }) {
   const [modalOpen, setModalOpen] = useState(false);
   const hasDocs = level.docs?.length > 0;
 
   return (
-    <aside className="docs-sidebar">
+    <aside className={`docs-sidebar${mobileOpen ? ' mobile-open' : ''}`}>
       <h3>Reference</h3>
 
       {hasDocs ? (
