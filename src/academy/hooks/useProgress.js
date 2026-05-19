@@ -28,28 +28,8 @@ function save(state) {
 // 1. It's level 1 (always unlocked)
 // 2. Its previous level is completed
 // 3. Any level in the same module has been visited (module-wide unlock once attempted)
-function computeUnlocked(state) {
-  const { completedLevels, visitedLevels } = state;
-  const unlockedModules = new Set();
-
-  // Find which modules have been touched
-  levels.forEach(l => {
-    if (visitedLevels.includes(l.id) || completedLevels.includes(l.id)) {
-      unlockedModules.add(l.module);
-    }
-  });
-
-  // Module 1 always unlocked
-  unlockedModules.add(1);
-
-  return (id) => {
-    const level = levels.find(l => l.id === id);
-    if (!level) return false;
-    if (unlockedModules.has(level.module)) return true;
-    // Also unlock if prev level completed
-    if (completedLevels.includes(id - 1)) return true;
-    return false;
-  };
+function computeUnlocked() {
+  return () => true; // all levels always unlocked
 }
 
 export function useProgress() {

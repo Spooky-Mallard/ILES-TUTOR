@@ -1,42 +1,67 @@
+import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-function DocEntry({ doc, category }) {
-  // External link format: { label, url }
-  if (doc.url) {
-    return (
-      <li>
-        <a
-          className="docs-link"
-          href={doc.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          📄 {doc.label}
-        </a>
-      </li>
-    );
-  }
+function DocsModal({ docs, category, onClose }) {
+  const [active, setActive] = useState(0);
+  const doc = docs[active];
 
-  // Inline reference card format: { heading, content, code }
   return (
-    <li className="docs-card">
-      <div className="docs-card-heading">{doc.heading}</div>
-      {doc.content && <p className="docs-card-content">{doc.content}</p>}
-      {doc.code && (
-        <SyntaxHighlighter
-          language={category === 'React' ? 'jsx' : 'python'}
-          style={oneDark}
-          customStyle={{ borderRadius: '4px', fontSize: '0.72rem', margin: '0.3rem 0 0', padding: '0.5rem' }}
-        >
-          {doc.code}
-        </SyntaxHighlighter>
-      )}
-    </li>
+    <div className="docs-modal-overlay" onClick={onClose}>
+      <div className="docs-modal" onClick={e => e.stopPropagation()}>
+        <div className="docs-modal-header">
+          <h3>Reference</h3>
+          <button className="docs-modal-close" onClick={onClose}>✕</button>
+        </div>
+
+        {docs.length > 1 && (
+          <div className="docs-modal-tabs">
+            {docs.map((d, i) => (
+              <button
+                key={i}
+                className={`docs-modal-tab${active === i ? ' active' : ''}`}
+                onClick={() => setActive(i)}
+              >
+                {d.heading || d.label || `Item ${i + 1}`}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="docs-modal-body">
+          {/* External link */}
+          {doc.url && (
+            <a href={doc.url} target="_blank" rel="noopener noreferrer" className="docs-ext-link">
+              📄 {doc.label} — opens in new tab →
+            </a>
+          )}
+
+          {/* Inline reference card */}
+          {doc.heading && (
+            <>
+              <h4 className="docs-card-heading">{doc.heading}</h4>
+              {doc.content && <p className="docs-card-content">{doc.content}</p>}
+              {doc.code && (
+                <SyntaxHighlighter
+                  language={category === 'React' ? 'jsx' : 'python'}
+                  style={vscDarkPlus}
+                  customStyle={{ borderRadius: '8px', fontSize: '0.82rem', margin: '0.75rem 0 0' }}
+                  wrapLines
+                  wrapLongLines
+                >
+                  {doc.code}
+                </SyntaxHighlighter>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default function DocsSidebar({ level, guidedScore, challengeScore }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const hasDocs = level.docs?.length > 0;
 
   return (
@@ -44,13 +69,19 @@ export default function DocsSidebar({ level, guidedScore, challengeScore }) {
       <h3>Reference</h3>
 
       {hasDocs ? (
-        <ul className="docs-link-list">
-          {level.docs.map((doc, i) => (
-            <DocEntry key={i} doc={doc} category={level.category} />
-          ))}
-        </ul>
+        <button className="btn-primary docs-open-btn" onClick={() => setModalOpen(true)}>
+          📖 View Reference ({level.docs.length})
+        </button>
       ) : (
         <p className="docs-empty">No reference for this level.</p>
+      )}
+
+      {modalOpen && (
+        <DocsModal
+          docs={level.docs}
+          category={level.category}
+          onClose={() => setModalOpen(false)}
+        />
       )}
 
       <hr className="docs-divider" />

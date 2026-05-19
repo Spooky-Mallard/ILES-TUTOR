@@ -634,6 +634,128 @@ code, pre {
   gap: .4rem;
 }
 
+/* ── Docs Modal ─────────────────────────────────────────── */
+.docs-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.docs-modal {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  width: 100%;
+  max-width: 680px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.docs-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.docs-modal-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.docs-modal-close {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .85rem;
+}
+
+.docs-modal-close:hover { background: var(--border); color: var(--text); }
+
+.docs-modal-tabs {
+  display: flex;
+  gap: .25rem;
+  padding: .5rem .75rem 0;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.docs-modal-tab {
+  padding: .35rem .75rem;
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--radius) var(--radius) 0 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.docs-modal-tab:hover { color: var(--text); }
+.docs-modal-tab.active {
+  color: var(--accent-dark, var(--django-green));
+  border-bottom-color: var(--accent, var(--django-green-accent));
+}
+
+.docs-modal-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.docs-card-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: .5rem;
+}
+
+.docs-card-content {
+  font-size: .875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.docs-ext-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--accent, var(--django-green-accent));
+  font-weight: 600;
+  font-size: .9rem;
+  padding: .75rem 1rem;
+  background: var(--accent-light, var(--django-green-light));
+  border-radius: var(--radius);
+  width: 100%;
+}
+
+.docs-ext-link:hover { text-decoration: none; filter: brightness(.95); }
+
+.docs-open-btn {
+  width: 100%;
+  text-align: center;
+  margin-bottom: .5rem;
+}
+
 /* ── Docs Sidebar ───────────────────────────────────────── */
 .docs-sidebar {
   background: var(--surface);
