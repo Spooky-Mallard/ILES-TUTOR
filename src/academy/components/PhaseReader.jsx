@@ -8,13 +8,12 @@ const codeStyle = {
   margin: 0,
 };
 
-function CodeBlock({ language, children, showLineNumbers = false }) {
+function CodeBlock({ language, children }) {
   return (
     <div style={{ maxWidth: '100%', overflowX: 'auto', borderRadius: '8px' }}>
       <SyntaxHighlighter
         language={language || 'python'}
         style={oneDark}
-        showLineNumbers={showLineNumbers}
         customStyle={codeStyle}
       >
         {children}
@@ -28,7 +27,7 @@ function AnnotatedExample({ example }) {
   return (
     <div className="annotated-example">
       <h3>Annotated Example</h3>
-      <CodeBlock language={example.language || 'python'} showLineNumbers>
+      <CodeBlock language={example.language || 'python'}>
         {example.code}
       </CodeBlock>
       {example.annotations?.length > 0 && (
