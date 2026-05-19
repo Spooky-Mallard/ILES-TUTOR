@@ -8,9 +8,11 @@ import EvalResult from './EvalResult.jsx';
 import HintDrawer from './HintDrawer.jsx';
 import RevealAnswer from './RevealAnswer.jsx';
 
+const BLANK_PATTERN = /_{3,}/;
+
 export default function CodeChallenge({
-  phase,           // 'guided' | 'challenge'
-  phaseData,       // level.guided or level.challenge
+  phase,
+  phaseData,
   hints,
   levelCategory,
   onPass,
@@ -23,16 +25,29 @@ export default function CodeChallenge({
   const [code, setCode] = useState(starter);
   const [result, setResult] = useState(null);
   const [revealed, setRevealed] = useState(false);
+  const [blankWarning, setBlankWarning] = useState(false);
 
   function handleRun() {
+    if (BLANK_PATTERN.test(code)) {
+      setBlankWarning(true);
+      setResult(null);
+      return;
+    }
+    setBlankWarning(false);
     const r = runChecks(code, phaseData.evalChecks);
     setResult(r);
     if (r.passed) onPass?.(r.score);
   }
 
+  function handleCodeChange(val) {
+    setCode(val);
+    if (blankWarning) setBlankWarning(false);
+  }
+
   function handleReset() {
     setCode(starter);
     setResult(null);
+    setBlankWarning(false);
   }
 
   return (
@@ -54,7 +69,7 @@ export default function CodeChallenge({
       <div className="code-challenge-editor">
         <CodeMirror
           value={code}
-          onChange={setCode}
+          onChange={handleCodeChange}
           theme={vscodeLight}
           extensions={[langExtension]}
           basicSetup={{ lineNumbers: true, foldGutter: false }}
@@ -74,6 +89,12 @@ export default function CodeChallenge({
           />
         )}
       </div>
+
+      {blankWarning && (
+        <div className="blank-warning">
+          <strong>Remove the blanks first!</strong> Replace all <code>_____</code> with your actual code before running checks.
+        </div>
+      )}
 
       {result && (
         <div style={{ padding: '0 1.25rem 1.25rem' }}>
